@@ -21,8 +21,8 @@ Visit: [https://oldgloryrise.com](https://oldgloryrise.com) *(update with actual
 
 ## 📋 Contract Addresses
 
-- **OGT+ Token**: [`0x8C2e58F2923e34FBB95a0759d6A16641aB61810A`](https://scan.pulsechain.com/address/0x8C2e58F2923e34FBB95a0759d6A16641aB61810A)
-- **LP Pair (OGT+/WPLS)**: *[To be deployed]*
+- **RISE Token**: [`0xE558edc934FDbB65cdF4868617D5F0D80595aD11`](https://scan.pulsechain.com/address/0xE558edc934FDbB65cdF4868617D5F0D80595aD11)
+- **LP Pair (RISE/WPLS)**: *[To be deployed]*
 - **pSunDAI Reward Token**: [`0x5529...`](https://scan.pulsechain.com/address/0x5529...) *(update with actual address)*
 - **Treasury Accelerator**: *[To be deployed]*
 
@@ -92,11 +92,11 @@ All styling is contained within `index.html` using CSS variables:
 - Deflation Rate
 - Total Shareholders
 - pSunDAI Distributed
-- Treasury Balance (1M OGT+)
+- Treasury Balance (1M RISE)
 - Treasury Burns Status
 
 ### User Dashboard
-- OGT+ Balance
+- RISE Balance
 - LP Token Balance
 - Share Count (with 2x LP bonus)
 - Unpaid pSunDAI Yield
@@ -106,30 +106,30 @@ All styling is contained within `index.html` using CSS variables:
 
 1. **Connect Wallet** - MetaMask or Web3 wallet on PulseChain
 2. **View Stats** - Real-time protocol metrics
-3. **Earn Rewards** - Hold OGT+ or provide liquidity to earn pSunDAI
+3. **Earn Rewards** - Hold RISE or provide liquidity to earn pSunDAI
 4. **Claim Rewards** - Pull-based pSunDAI distribution (1 hour cooldown)
 5. **LP Bonus** - Liquidity providers receive 2x share weight
-6. **Watch Burns** - Treasury autonomously burns OGT+ supply forever
+6. **Watch Burns** - Treasury autonomously burns RISE supply forever
 
 ## 🏗️ Protocol Architecture
 
 Old Glory RISE implements:
 
 ### Tokenomics
-- **Supply**: 10,000,000 OGT+
-- **Treasury**: 1,000,000 OGT+ (10% - autonomous burning)
-- **Circulating**: 9,000,000 OGT+ (90% - distributed to community)
+- **Supply**: 10,000,000 RISE
+- **Treasury**: 1,000,000 RISE (10% - autonomous burning)
+- **Circulating**: 9,000,000 RISE (90% - distributed to community)
 - **Fees**: 0.45% buy / 4% sell (split between burns and yield)
 
 ### Yield System
 - **Reward Token**: pSunDAI (yield-bearing stablecoin)
 - **Distribution**: Pull-based claiming (gas efficient)
-- **Min Balance**: 1 OGT+ to qualify for rewards
+- **Min Balance**: 1 RISE to qualify for rewards
 - **LP Multiplier**: 2x share weight for liquidity providers
 - **Cooldown**: 1 hour between claims
 
 ### Treasury Accelerator
-- **Allocation**: 1M OGT+ (10% of supply)
+- **Allocation**: 1M RISE (10% of supply)
 - **Function**: Autonomous buy-and-burn mechanism
 - **Frequency**: Executes every hour when conditions met
 - **Deflation**: 17-490% annual burn rate (volume dependent)
@@ -139,8 +139,8 @@ Old Glory RISE implements:
 ### Deflationary Flywheel
 1. Trading volume generates pSunDAI rewards
 2. Treasury (10%) claims its share
-3. Treasury swaps pSunDAI → PLS → OGT+
-4. Purchased OGT+ burned to `0x369` address
+3. Treasury swaps pSunDAI → PLS → RISE
+4. Purchased RISE burned to `0x369` address
 5. Supply decreases, scarcity increases
 6. Price appreciation attracts more volume
 7. **Repeat** ♻️
@@ -156,7 +156,7 @@ Old Glory RISE embodies:
 - ✅ **Rewards**: Stable pSunDAI yield for holders
 - ✅ **Immutable**: No admin keys, no governance
 - ✅ **Sovereign**: True self-custody, zero dependencies
-- ✅ **Ecosystem**: Circular SunDAI/pSunDAI/OGT+ economics
+- ✅ **Ecosystem**: Circular SunDAI/pSunDAI/RISE economics
 
 ## 📈 Deflationary Metrics
 
@@ -188,10 +188,10 @@ Old Glory RISE:
 
 ## 📝 Launch Checklist
 
-- [x] Deploy OGT+ token contract
-- [ ] Create OGT+/WPLS liquidity pair
+- [x] Deploy RISE token contract
+- [ ] Create RISE/WPLS liquidity pair
 - [ ] Deploy Treasury Accelerator contract
-- [ ] Transfer 1M OGT+ to treasury
+- [ ] Transfer 1M RISE to treasury
 - [ ] Verify treasury NOT excluded from yield
 - [ ] Test execute() function
 - [ ] Lock parameters (after 6-12 months testing)
@@ -213,7 +213,7 @@ Contributions welcome! Please:
 ## 🔗 Links
 
 - **Website**: [oldgloryrise.com](https://oldgloryrise.com) *(update)*
-- **Contract**: [PulseScan](https://scan.pulsechain.com/address/0x8C2e58F2923e34FBB95a0759d6A16641aB61810A)
+- **Contract**: [PulseScan](https://scan.pulsechain.com/address/0xE558edc934FDbB65cdF4868617D5F0D80595aD11)
 - **Developer**: ELITE TEAM6
 - **Ecosystem**: [SunDAI](https://sundaitoken.com)
 
