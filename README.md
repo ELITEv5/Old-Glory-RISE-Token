@@ -6,7 +6,6 @@ Old Glory RISE is the demand engine for the SunDAI stable asset ecosystem. Every
 
 **Already donated $300+ to veteran charities. This is DeFi with a mission.** 🎖️
 
-![Old Glory RISE Token]([assets/OG_ELITE.png](https://github.com/ELITEv5/OldGloryToken/blob/bc5550d96bec80d61e3e262679ff0e4176a2a231/old-glory-token-dapp/assets/OG_ELITE.png))
 
 ---
 
