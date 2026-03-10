@@ -2,7 +2,7 @@
 
 **Turning Speculation into Stability - Volatility into Veteran Support**
 
-Old Glory RISE is the demand engine for the SunDAI stablecoin ecosystem. Every trade automatically buys pSunDAI from the market and distributes it to holders - creating perpetual buy pressure for the stable while funding real-world veteran charities.
+Old Glory RISE is the demand engine for the SunDAI stable asset ecosystem. Every trade automatically buys pSunDAI from the market and distributes it to holders - creating perpetual buy pressure for the stable while funding real-world veteran charities.
 
 **Already donated $300+ to veteran charities. This is DeFi with a mission.** 🎖️
 
@@ -12,9 +12,9 @@ Old Glory RISE is the demand engine for the SunDAI stablecoin ecosystem. Every t
 
 ## 🎯 The Mission
 
-### The Problem: Stablecoin Demand
+### The Problem: Stable Asset Demand
 
-Every stablecoin asks: *"Why would anyone buy this?"*
+Every stable asset asks: *"Why would anyone buy this?"*
 
 Most rely on fragile arbitrage, unsustainable yield farming, or hope. They fail when it matters most.
 
@@ -33,7 +33,7 @@ Every RISE trade → buys pSunDAI from DEX → distributes to holders
 RISE is part of a complete DeFi vertical:
 
 ### **1. SunDAI** - The Foundation
-- Autonomous CDP stablecoin on PulseChain
+- Autonomous CDP stable asset on PulseChain
 - Backed by over-collateralized vaults (PLS, HEX, PLSX)
 - Zero governance, fully immutable
 - Battle-tested through major market volatility
@@ -84,7 +84,7 @@ More volume → More pSunDAI demand
 
 Fees accumulate in RISE → Auto-swap to pSunDAI → Distribute proportionally
 
-**Dumpers pay holders in stablecoins.** The more someone sells, the more rewards you earn.
+**Dumpers pay holders in stable assets.** The more someone sells, the more rewards you earn.
 
 ### LP Multiplier
 
@@ -161,7 +161,7 @@ Veterans fought for that freedom. RISE honors their sacrifice by turning DeFi sp
 
 ### The Demand Problem - Solved
 
-RISE gives pSunDAI something NO other stablecoin has:
+RISE gives pSunDAI something NO other stable asset has:
 
 **Perpetual, autonomous, guaranteed buy pressure.**
 
@@ -304,7 +304,7 @@ Not financial advice. Cryptocurrency investments carry risk.
 
 **Most tokens say:** "Buy our token and hope it goes up"
 
-**RISE says:** "Trade our token and earn stablecoins while supporting veterans"
+**RISE says:** "Trade our token and earn stable assets while supporting veterans"
 
 **That's the difference.**
 
