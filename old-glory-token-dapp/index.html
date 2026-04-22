@@ -104,16 +104,15 @@
 
   .eagle-badge {
     width:150px; height:150px;
-    border-radius:0;
+    border-radius:50%;
     border:none;
-    box-shadow:none;
     margin-bottom:16px;
-    object-fit:contain;
+    object-fit:cover;
     animation: badgePulse 4s ease-in-out infinite;
   }
   @keyframes badgePulse {
-    0%,100% { filter: drop-shadow(0 0 14px rgba(201,150,58,.5)); }
-    50%      { filter: drop-shadow(0 0 32px rgba(201,150,58,.9)); }
+    0%,100% { box-shadow: 0 0 18px 4px rgba(201,150,58,.5); }
+    50%      { box-shadow: 0 0 40px 8px rgba(201,150,58,.85); }
   }
 
   h1 {
