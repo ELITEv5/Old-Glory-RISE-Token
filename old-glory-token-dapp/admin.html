@@ -368,6 +368,35 @@
 
         hr { margin:24px 0; border:none; border-top:1px solid rgba(255,255,255,.06); }
 
+        /* ── LIVE SETTINGS ── */
+        .settings-grid {
+            display:grid; grid-template-columns:repeat(3,1fr); gap:14px;
+        }
+        @media(max-width:800px) { .settings-grid { grid-template-columns:1fr 1fr; } }
+        @media(max-width:500px) { .settings-grid { grid-template-columns:1fr; } }
+
+        .settings-group {
+            background:rgba(0,0,0,.25); border:1px solid var(--border);
+            border-left:2px solid var(--gold); padding:14px 16px;
+        }
+        .sg-title {
+            font-family:'Bebas Neue',sans-serif; letter-spacing:.18em;
+            color:var(--gold); font-size:.9rem; margin-bottom:10px;
+            padding-bottom:7px; border-bottom:1px solid rgba(201,150,58,.15);
+        }
+        .sg-row {
+            display:flex; justify-content:space-between; align-items:center;
+            padding:5px 0; border-bottom:1px solid rgba(255,255,255,.03);
+            font-size:.8rem;
+        }
+        .sg-row:last-child { border-bottom:none; }
+        .sg-row .sg-key { color:var(--silver); font-weight:300; letter-spacing:.04em; }
+        .sg-row .sg-val { font-family:'Share Tech Mono',monospace; color:var(--gold2); font-size:.82rem; }
+        .sg-row .sg-val.on  { color:var(--green); }
+        .sg-row .sg-val.off { color:var(--red2); }
+        .sg-row .sg-val.locked   { color:var(--green); }
+        .sg-row .sg-val.unlocked { color:var(--red2); }
+
         /* ── TOAST ── */
         #toast {
             position:fixed; bottom:30px; right:30px;
@@ -623,6 +652,50 @@
                     Re-reads wallet count, POL stats, lock states from chain.
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════ LIVE SETTINGS ═══════════════ -->
+    <div class="card" id="liveSettingsCard" style="display:none;">
+        <h2>📡 Current On-Chain Settings</h2>
+        <div class="settings-grid">
+
+            <div class="settings-group">
+                <div class="sg-title">Buy Fees</div>
+                <div class="sg-row"><span class="sg-key">Burn</span>    <span class="sg-val" id="lsBuyBurn">—</span></div>
+                <div class="sg-row"><span class="sg-key">Yield</span>   <span class="sg-val" id="lsBuyYield">—</span></div>
+                <div class="sg-row"><span class="sg-key">Total</span>   <span class="sg-val" id="lsBuyTotal">—</span></div>
+                <div class="sg-row"><span class="sg-key">Locked</span>  <span class="sg-val" id="lsFeesLocked">—</span></div>
+            </div>
+
+            <div class="settings-group">
+                <div class="sg-title">Sell Fees</div>
+                <div class="sg-row"><span class="sg-key">Burn</span>    <span class="sg-val" id="lsSellBurn">—</span></div>
+                <div class="sg-row"><span class="sg-key">Yield</span>   <span class="sg-val" id="lsSellYield">—</span></div>
+                <div class="sg-row"><span class="sg-key">Total</span>   <span class="sg-val" id="lsSellTotal">—</span></div>
+            </div>
+
+            <div class="settings-group">
+                <div class="sg-title">Payout Policy</div>
+                <div class="sg-row"><span class="sg-key">Payout</span>      <span class="sg-val" id="lsPayoutEn">—</span></div>
+                <div class="sg-row"><span class="sg-key">Auto-payout</span> <span class="sg-val" id="lsAutoPayout">—</span></div>
+                <div class="sg-row"><span class="sg-key">Swaps</span>       <span class="sg-val" id="lsSwapEn">—</span></div>
+                <div class="sg-row"><span class="sg-key">Locked</span>      <span class="sg-val" id="lsPayoutLocked">—</span></div>
+            </div>
+
+            <div class="settings-group">
+                <div class="sg-title">Payout Thresholds</div>
+                <div class="sg-row"><span class="sg-key">Min wait</span>    <span class="sg-val" id="lsMinWait">—</span></div>
+                <div class="sg-row"><span class="sg-key">Min yield</span>   <span class="sg-val" id="lsMinYield">—</span></div>
+                <div class="sg-row"><span class="sg-key">Max gas</span>     <span class="sg-val" id="lsMaxGas">—</span></div>
+            </div>
+
+            <div class="settings-group">
+                <div class="sg-title">Protocol-Owned Liquidity</div>
+                <div class="sg-row"><span class="sg-key">POL split</span>   <span class="sg-val" id="lsPolBips">—</span></div>
+                <div class="sg-row"><span class="sg-key">Locked</span>      <span class="sg-val" id="lsPolLocked">—</span></div>
+            </div>
+
         </div>
     </div>
 
@@ -957,7 +1030,12 @@
     async function loadStatus() {
         if (!contract) return;
         try {
-            const [wallets, shares, paid, polAdded, polBips_, feesLk, payoutLk, polLk] = await Promise.all([
+            const [
+                wallets, shares, paid, polAdded, polBips_,
+                feesLk, payoutLk, polLk,
+                bb, by, sb, sy,
+                swapEn, payoutEn, autoP, mwait, minyield, gas
+            ] = await Promise.all([
                 contract.walletCount(),
                 contract.totalShares(),
                 contract.totalYieldPaid(),
@@ -965,7 +1043,17 @@
                 contract.polBips(),
                 contract.feesLocked(),
                 contract.payoutPolicyLocked(),
-                contract.polLocked()
+                contract.polLocked(),
+                contract.buyBurnFee(),
+                contract.buyYieldFee(),
+                contract.sellBurnFee(),
+                contract.sellYieldFee(),
+                contract.swapEnabled(),
+                contract.payoutEnabled(),
+                contract.autoPayout(),
+                contract.minWaitSec(),
+                contract.minYield(),
+                contract.maxGas(),
             ]);
 
             const fmt = (v, d=2) => {
@@ -975,6 +1063,7 @@
                 return n.toFixed(d);
             };
 
+            // Status strip
             document.getElementById('sWallets').textContent    = Number(wallets).toLocaleString();
             document.getElementById('sShares').textContent     = fmt(shares, 0);
             document.getElementById('sPaid').textContent       = fmt(paid, 2)+' pSunDAI';
@@ -995,7 +1084,54 @@
             lockEl('sPayoutLock', 'payoutLockBadge', payoutLk);
             lockEl('sPolLock',    'polLockBadge',    polLk);
 
-            document.getElementById('polBips').value = Number(polBips_);
+            // Live settings card
+            document.getElementById('liveSettingsCard').style.display = 'block';
+
+            const bbN=Number(bb), byN=Number(by), sbN=Number(sb), syN=Number(sy);
+            document.getElementById('lsBuyBurn').textContent    = (bbN/100).toFixed(2)+'%';
+            document.getElementById('lsBuyYield').textContent   = (byN/100).toFixed(2)+'%';
+            document.getElementById('lsBuyTotal').textContent   = ((bbN+byN)/100).toFixed(2)+'%';
+            document.getElementById('lsSellBurn').textContent   = (sbN/100).toFixed(2)+'%';
+            document.getElementById('lsSellYield').textContent  = (syN/100).toFixed(2)+'%';
+            document.getElementById('lsSellTotal').textContent  = ((sbN+syN)/100).toFixed(2)+'%';
+
+            const sv = (id, val, onLabel='ON', offLabel='OFF') => {
+                const el = document.getElementById(id);
+                el.textContent  = val ? onLabel : offLabel;
+                el.className    = 'sg-val ' + (val ? 'on' : 'off');
+            };
+            const lk = (id, locked) => {
+                const el = document.getElementById(id);
+                el.textContent = locked ? 'Locked' : 'Unlocked';
+                el.className   = 'sg-val ' + (locked ? 'locked' : 'unlocked');
+            };
+
+            sv('lsPayoutEn',   payoutEn, 'Enabled',  'Disabled');
+            sv('lsAutoPayout', autoP,    'ON',        'OFF');
+            sv('lsSwapEn',     swapEn,   'ON',        'OFF');
+            lk('lsFeesLocked',   feesLk);
+            lk('lsPayoutLocked', payoutLk);
+            lk('lsPolLocked',    polLk);
+
+            const waitMin = Math.round(Number(mwait)/60);
+            document.getElementById('lsMinWait').textContent  = waitMin>=60 ? (waitMin/60).toFixed(1)+'h' : waitMin+'m';
+            document.getElementById('lsMinYield').textContent = parseFloat(ethers.formatEther(minyield)).toFixed(3)+' pSunDAI';
+            document.getElementById('lsMaxGas').textContent   = Number(gas).toLocaleString();
+            document.getElementById('lsPolBips').textContent  = (Number(polBips_)/100).toFixed(1)+'%';
+
+            // Pre-fill form inputs
+            document.getElementById('buyBurnFee').value       = bbN;
+            document.getElementById('buyYieldFee').value      = byN;
+            document.getElementById('sellBurnFee').value      = sbN;
+            document.getElementById('sellYieldFee').value     = syN;
+            document.getElementById('payoutEnabled').checked  = payoutEn;
+            document.getElementById('minWaitSec').value       = Number(mwait);
+            document.getElementById('minYield').value         = parseFloat(ethers.formatEther(minyield));
+            document.getElementById('maxGas').value           = Number(gas);
+            document.getElementById('swapEnabled').checked    = swapEn;
+            document.getElementById('autoPayout').checked     = autoP;
+            document.getElementById('polBips').value          = Number(polBips_);
+
         } catch(e) { console.warn('loadStatus:', e.message); }
     }
 
