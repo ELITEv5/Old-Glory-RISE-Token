@@ -1,81 +1,26 @@
 [
   {
     "type": "constructor",
-    "inputs": [],
+    "inputs": [{"name": "_pSunDAI", "type": "address", "internalType": "address"}],
     "stateMutability": "nonpayable"
+  },
+  {
+    "name": "Transfer",
+    "type": "event",
+    "inputs": [
+      {"name": "from", "type": "address", "indexed": true, "internalType": "address"},
+      {"name": "to",   "type": "address", "indexed": true, "internalType": "address"},
+      {"name": "v",    "type": "uint256", "indexed": false, "internalType": "uint256"}
+    ],
+    "anonymous": false
   },
   {
     "name": "Approval",
     "type": "event",
     "inputs": [
-      {
-        "name": "owner",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "spender",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "v",
-        "type": "uint256",
-        "indexed": false,
-        "internalType": "uint256"
-      }
-    ],
-    "anonymous": false
-  },
-  {
-    "name": "FeesUpdated",
-    "type": "event",
-    "inputs": [
-      {
-        "name": "",
-        "type": "uint16",
-        "indexed": false,
-        "internalType": "uint16"
-      },
-      {
-        "name": "",
-        "type": "uint16",
-        "indexed": false,
-        "internalType": "uint16"
-      },
-      {
-        "name": "",
-        "type": "uint16",
-        "indexed": false,
-        "internalType": "uint16"
-      },
-      {
-        "name": "",
-        "type": "uint16",
-        "indexed": false,
-        "internalType": "uint16"
-      }
-    ],
-    "anonymous": false
-  },
-  {
-    "name": "NoYieldSet",
-    "type": "event",
-    "inputs": [
-      {
-        "name": "",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "",
-        "type": "bool",
-        "indexed": false,
-        "internalType": "bool"
-      }
+      {"name": "owner",   "type": "address", "indexed": true,  "internalType": "address"},
+      {"name": "spender", "type": "address", "indexed": true,  "internalType": "address"},
+      {"name": "v",       "type": "uint256", "indexed": false, "internalType": "uint256"}
     ],
     "anonymous": false
   },
@@ -83,125 +28,59 @@
     "name": "OwnershipTransferred",
     "type": "event",
     "inputs": [
-      {
-        "name": "prev",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "next",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      }
+      {"name": "prev", "type": "address", "indexed": true, "internalType": "address"},
+      {"name": "next", "type": "address", "indexed": true, "internalType": "address"}
     ],
+    "anonymous": false
+  },
+  {
+    "name": "FeesUpdated",
+    "type": "event",
+    "inputs": [
+      {"name": "bb", "type": "uint16", "indexed": false, "internalType": "uint16"},
+      {"name": "by", "type": "uint16", "indexed": false, "internalType": "uint16"},
+      {"name": "sb", "type": "uint16", "indexed": false, "internalType": "uint16"},
+      {"name": "sy", "type": "uint16", "indexed": false, "internalType": "uint16"}
+    ],
+    "anonymous": false
+  },
+  {
+    "name": "FeesLocked",
+    "type": "event",
+    "inputs": [],
     "anonymous": false
   },
   {
     "name": "PayoutPolicyUpdated",
     "type": "event",
     "inputs": [
-      {
-        "name": "",
-        "type": "bool",
-        "indexed": false,
-        "internalType": "bool"
-      },
-      {
-        "name": "",
-        "type": "uint24",
-        "indexed": false,
-        "internalType": "uint24"
-      },
-      {
-        "name": "",
-        "type": "uint256",
-        "indexed": false,
-        "internalType": "uint256"
-      },
-      {
-        "name": "",
-        "type": "uint24",
-        "indexed": false,
-        "internalType": "uint24"
-      }
+      {"name": "enabled", "type": "bool",    "indexed": false, "internalType": "bool"},
+      {"name": "minDur",  "type": "uint24",  "indexed": false, "internalType": "uint24"},
+      {"name": "newMin",  "type": "uint256", "indexed": false, "internalType": "uint256"},
+      {"name": "gas_",    "type": "uint24",  "indexed": false, "internalType": "uint24"}
     ],
     "anonymous": false
   },
   {
-    "name": "RewardChoiceChanged",
+    "name": "PayoutPolicyLocked",
+    "type": "event",
+    "inputs": [],
+    "anonymous": false
+  },
+  {
+    "name": "SwapEnabled",
     "type": "event",
     "inputs": [
-      {
-        "name": "wallet",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "token",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      }
+      {"name": "enabled", "type": "bool", "indexed": false, "internalType": "bool"}
     ],
     "anonymous": false
   },
   {
-    "name": "RewardTokenAdded",
+    "name": "NoYieldSet",
     "type": "event",
     "inputs": [
-      {
-        "name": "",
-        "type": "address",
-        "indexed": false,
-        "internalType": "address"
-      },
-      {
-        "name": "",
-        "type": "uint8",
-        "indexed": false,
-        "internalType": "uint8"
-      }
-    ],
-    "anonymous": false
-  },
-  {
-    "name": "SwapParamsUpdated",
-    "type": "event",
-    "inputs": [
-      {
-        "name": "",
-        "type": "bool",
-        "indexed": false,
-        "internalType": "bool"
-      }
-    ],
-    "anonymous": false
-  },
-  {
-    "name": "Transfer",
-    "type": "event",
-    "inputs": [
-      {
-        "name": "from",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "to",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "v",
-        "type": "uint256",
-        "indexed": false,
-        "internalType": "uint256"
-      }
+      {"name": "wallet",   "type": "address", "indexed": true,  "internalType": "address"},
+      {"name": "excluded", "type": "bool",    "indexed": false, "internalType": "bool"}
     ],
     "anonymous": false
   },
@@ -209,559 +88,152 @@
     "name": "YieldPaid",
     "type": "event",
     "inputs": [
-      {
-        "name": "wallet",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "token",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "amount",
-        "type": "uint256",
-        "indexed": false,
-        "internalType": "uint256"
-      }
+      {"name": "wallet", "type": "address", "indexed": true,  "internalType": "address"},
+      {"name": "amount", "type": "uint256", "indexed": false, "internalType": "uint256"}
     ],
     "anonymous": false
   },
+  {"name": "name",        "type": "function", "inputs": [], "outputs": [{"name": "", "type": "string",  "internalType": "string"}],  "stateMutability": "view"},
+  {"name": "symbol",      "type": "function", "inputs": [], "outputs": [{"name": "", "type": "string",  "internalType": "string"}],  "stateMutability": "view"},
+  {"name": "decimals",    "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint8",   "internalType": "uint8"}],   "stateMutability": "pure"},
+  {"name": "totalSupply", "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint256", "internalType": "uint256"}], "stateMutability": "view"},
   {
-    "name": "MAX_ITERS",
+    "name": "balanceOf",
     "type": "function",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
+    "inputs": [{"name": "a", "type": "address", "internalType": "address"}],
+    "outputs": [{"name": "", "type": "uint256", "internalType": "uint256"}],
     "stateMutability": "view"
   },
   {
-    "name": "MAX_SWAP",
+    "name": "transfer",
     "type": "function",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "stateMutability": "view"
+    "inputs": [{"name": "to", "type": "address"}, {"name": "v", "type": "uint256"}],
+    "outputs": [{"name": "", "type": "bool"}],
+    "stateMutability": "nonpayable"
   },
   {
-    "name": "MIN_SWAP",
+    "name": "transferFrom",
     "type": "function",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "name": "MIN_YIELD_BALANCE",
-    "type": "function",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "name": "PSUNDAI",
-    "type": "function",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "name": "PULSEX_V2_ROUTER",
-    "type": "function",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "name": "airdrop",
-    "type": "function",
-    "inputs": [
-      {
-        "name": "to",
-        "type": "address[]",
-        "internalType": "address[]"
-      },
-      {
-        "name": "amts",
-        "type": "uint256[]",
-        "internalType": "uint256[]"
-      }
-    ],
-    "outputs": [],
+    "inputs": [{"name": "f", "type": "address"}, {"name": "t", "type": "address"}, {"name": "v", "type": "uint256"}],
+    "outputs": [{"name": "", "type": "bool"}],
     "stateMutability": "nonpayable"
   },
   {
     "name": "allowance",
     "type": "function",
-    "inputs": [
-      {
-        "name": "o",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "s",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
+    "inputs": [{"name": "o", "type": "address"}, {"name": "s", "type": "address"}],
+    "outputs": [{"name": "", "type": "uint256"}],
     "stateMutability": "view"
   },
   {
     "name": "approve",
     "type": "function",
-    "inputs": [
-      {
-        "name": "s",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "v",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool",
-        "internalType": "bool"
-      }
-    ],
+    "inputs": [{"name": "s", "type": "address"}, {"name": "v", "type": "uint256"}],
+    "outputs": [{"name": "", "type": "bool"}],
     "stateMutability": "nonpayable"
   },
+  {"name": "dexRouter",         "type": "function", "inputs": [], "outputs": [{"name": "", "type": "address", "internalType": "address"}], "stateMutability": "view"},
+  {"name": "plsV2LP",           "type": "function", "inputs": [], "outputs": [{"name": "", "type": "address", "internalType": "address"}], "stateMutability": "view"},
+  {"name": "pSunDAI",           "type": "function", "inputs": [], "outputs": [{"name": "", "type": "address", "internalType": "address"}], "stateMutability": "view"},
+  {"name": "buyBurnFee",        "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint16", "internalType": "uint16"}],  "stateMutability": "view"},
+  {"name": "buyYieldFee",       "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint16", "internalType": "uint16"}],  "stateMutability": "view"},
+  {"name": "sellBurnFee",       "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint16", "internalType": "uint16"}],  "stateMutability": "view"},
+  {"name": "sellYieldFee",      "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint16", "internalType": "uint16"}],  "stateMutability": "view"},
+  {"name": "feesLocked",        "type": "function", "inputs": [], "outputs": [{"name": "", "type": "bool"}],    "stateMutability": "view"},
+  {"name": "payoutEnabled",     "type": "function", "inputs": [], "outputs": [{"name": "", "type": "bool"}],    "stateMutability": "view"},
+  {"name": "autoPayout",        "type": "function", "inputs": [], "outputs": [{"name": "", "type": "bool"}],    "stateMutability": "view"},
+  {"name": "swapEnabled",       "type": "function", "inputs": [], "outputs": [{"name": "", "type": "bool"}],    "stateMutability": "view"},
+  {"name": "payoutPolicyLocked","type": "function", "inputs": [], "outputs": [{"name": "", "type": "bool"}],    "stateMutability": "view"},
+  {"name": "maxGas",            "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint24"}],  "stateMutability": "view"},
+  {"name": "minWaitSec",        "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint24"}],  "stateMutability": "view"},
+  {"name": "minYield",          "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint256"}], "stateMutability": "view"},
+  {"name": "shareYieldRay",     "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint256"}], "stateMutability": "view"},
+  {"name": "totalYieldPaid",    "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint256"}], "stateMutability": "view"},
+  {"name": "totalYield",        "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint256"}], "stateMutability": "view"},
+  {"name": "totalShares",       "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint256"}], "stateMutability": "view"},
+  {"name": "currIndex",         "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint32"}],  "stateMutability": "view"},
+  {"name": "MIN_YIELD_BALANCE", "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint256"}], "stateMutability": "view"},
+  {"name": "MAX_ITERS",         "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint256"}], "stateMutability": "view"},
+  {"name": "MAX_SWAP",          "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint256"}], "stateMutability": "view"},
+  {"name": "MIN_SWAP",          "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint256"}], "stateMutability": "view"},
+  {"name": "LP_WEIGHT_BIPS",    "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint24"}],  "stateMutability": "view"},
   {
-    "name": "autoPayout",
+    "name": "shares",
     "type": "function",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool",
-        "internalType": "bool"
-      }
-    ],
+    "inputs": [{"name": "", "type": "address"}],
+    "outputs": [{"name": "", "type": "uint256"}],
     "stateMutability": "view"
   },
   {
-    "name": "balanceOf",
+    "name": "yieldDebt",
     "type": "function",
-    "inputs": [
-      {
-        "name": "a",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
+    "inputs": [{"name": "", "type": "address"}],
+    "outputs": [{"name": "", "type": "uint256"}],
     "stateMutability": "view"
   },
   {
-    "name": "claimYield",
+    "name": "walletClaimTS",
     "type": "function",
-    "inputs": [],
-    "outputs": [],
-    "stateMutability": "nonpayable"
-  },
-  {
-    "name": "currIndex",
-    "type": "function",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint32",
-        "internalType": "uint32"
-      }
-    ],
+    "inputs": [{"name": "", "type": "address"}],
+    "outputs": [{"name": "", "type": "uint256"}],
     "stateMutability": "view"
   },
   {
-    "name": "decimals",
+    "name": "wallets",
     "type": "function",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint8",
-        "internalType": "uint8"
-      }
-    ],
-    "stateMutability": "pure"
-  },
-  {
-    "name": "dexRouter",
-    "type": "function",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "contract IUniswapV2Router02"
-      }
-    ],
+    "inputs": [{"name": "", "type": "uint256"}],
+    "outputs": [{"name": "", "type": "address"}],
     "stateMutability": "view"
   },
   {
-    "name": "fees",
+    "name": "walletIndex",
     "type": "function",
-    "inputs": [
-      {
-        "name": "",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint16",
-        "internalType": "uint16"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "name": "getUnpaidYield",
-    "type": "function",
-    "inputs": [
-      {
-        "name": "wallet",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "token",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "name": "lpWeightBips",
-    "type": "function",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint24",
-        "internalType": "uint24"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "name": "maxGas",
-    "type": "function",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint24",
-        "internalType": "uint24"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "name": "minWaitSec",
-    "type": "function",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint24",
-        "internalType": "uint24"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "name": "minYield",
-    "type": "function",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "name": "name",
-    "type": "function",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "string",
-        "internalType": "string"
-      }
-    ],
+    "inputs": [{"name": "", "type": "address"}],
+    "outputs": [{"name": "", "type": "uint256"}],
     "stateMutability": "view"
   },
   {
     "name": "noFee",
     "type": "function",
-    "inputs": [
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool",
-        "internalType": "bool"
-      }
-    ],
+    "inputs": [{"name": "", "type": "address"}],
+    "outputs": [{"name": "", "type": "bool"}],
     "stateMutability": "view"
   },
   {
     "name": "noYield",
     "type": "function",
-    "inputs": [
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool",
-        "internalType": "bool"
-      }
-    ],
+    "inputs": [{"name": "", "type": "address"}],
+    "outputs": [{"name": "", "type": "bool"}],
     "stateMutability": "view"
   },
   {
-    "name": "owner",
+    "name": "getUnpaidYield",
     "type": "function",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
+    "inputs": [{"name": "wallet", "type": "address"}],
+    "outputs": [{"name": "", "type": "uint256"}],
     "stateMutability": "view"
   },
   {
-    "name": "payoutEnabled",
+    "name": "isPayEligible",
     "type": "function",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool",
-        "internalType": "bool"
-      }
-    ],
+    "inputs": [{"name": "wallet", "type": "address"}],
+    "outputs": [{"name": "", "type": "bool"}],
     "stateMutability": "view"
   },
-  {
-    "name": "plsV2LP",
-    "type": "function",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "contract IUniswapV2Pair"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "name": "renounceOwnership",
-    "type": "function",
-    "inputs": [],
-    "outputs": [],
-    "stateMutability": "nonpayable"
-  },
-  {
-    "name": "rewardTokenList",
-    "type": "function",
-    "inputs": [
-      {
-        "name": "",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "outputs": [
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "name": "rewardTokens",
-    "type": "function",
-    "inputs": [
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
-    "outputs": [
-      {
-        "name": "token",
-        "type": "address",
-        "internalType": "contract IERC20"
-      },
-      {
-        "name": "decimals",
-        "type": "uint8",
-        "internalType": "uint8"
-      },
-      {
-        "name": "scale",
-        "type": "uint256",
-        "internalType": "uint256"
-      },
-      {
-        "name": "shareYieldRay",
-        "type": "uint256",
-        "internalType": "uint256"
-      },
-      {
-        "name": "totalPaid",
-        "type": "uint256",
-        "internalType": "uint256"
-      },
-      {
-        "name": "totalYield",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "name": "setAutoPayout",
-    "type": "function",
-    "inputs": [
-      {
-        "name": "en",
-        "type": "bool",
-        "internalType": "bool"
-      }
-    ],
-    "outputs": [],
-    "stateMutability": "nonpayable"
-  },
+  {"name": "owner", "type": "function", "inputs": [], "outputs": [{"name": "", "type": "address"}], "stateMutability": "view"},
+  {"name": "claimYield",         "type": "function", "inputs": [], "outputs": [], "stateMutability": "nonpayable"},
+  {"name": "lockFees",           "type": "function", "inputs": [], "outputs": [], "stateMutability": "nonpayable"},
+  {"name": "lockPayoutPolicy",   "type": "function", "inputs": [], "outputs": [], "stateMutability": "nonpayable"},
+  {"name": "renounceOwnership",  "type": "function", "inputs": [], "outputs": [], "stateMutability": "nonpayable"},
+  {"name": "recoverPLS",         "type": "function", "inputs": [], "outputs": [], "stateMutability": "nonpayable"},
   {
     "name": "setFees",
     "type": "function",
     "inputs": [
-      {
-        "name": "bb",
-        "type": "uint16",
-        "internalType": "uint16"
-      },
-      {
-        "name": "by",
-        "type": "uint16",
-        "internalType": "uint16"
-      },
-      {
-        "name": "sb",
-        "type": "uint16",
-        "internalType": "uint16"
-      },
-      {
-        "name": "sy",
-        "type": "uint16",
-        "internalType": "uint16"
-      }
-    ],
-    "outputs": [],
-    "stateMutability": "nonpayable"
-  },
-  {
-    "name": "setNoYield",
-    "type": "function",
-    "inputs": [
-      {
-        "name": "w",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "f",
-        "type": "bool",
-        "internalType": "bool"
-      }
+      {"name": "bb", "type": "uint16"},
+      {"name": "by", "type": "uint16"},
+      {"name": "sb", "type": "uint16"},
+      {"name": "sy", "type": "uint16"}
     ],
     "outputs": [],
     "stateMutability": "nonpayable"
@@ -770,300 +242,104 @@
     "name": "setPayoutPolicy",
     "type": "function",
     "inputs": [
-      {
-        "name": "en",
-        "type": "bool",
-        "internalType": "bool"
-      },
-      {
-        "name": "minDur",
-        "type": "uint24",
-        "internalType": "uint24"
-      },
-      {
-        "name": "newMin",
-        "type": "uint256",
-        "internalType": "uint256"
-      },
-      {
-        "name": "gas_",
-        "type": "uint24",
-        "internalType": "uint24"
-      }
+      {"name": "en",     "type": "bool"},
+      {"name": "minDur", "type": "uint24"},
+      {"name": "newMin", "type": "uint256"},
+      {"name": "gas_",   "type": "uint24"}
     ],
     "outputs": [],
     "stateMutability": "nonpayable"
   },
   {
-    "name": "setRewardChoice",
+    "name": "setSwapEnabled",
     "type": "function",
-    "inputs": [
-      {
-        "name": "token",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
+    "inputs": [{"name": "en", "type": "bool"}],
     "outputs": [],
     "stateMutability": "nonpayable"
   },
   {
-    "name": "setSwapParams",
+    "name": "setAutoPayout",
     "type": "function",
-    "inputs": [
-      {
-        "name": "en",
-        "type": "bool",
-        "internalType": "bool"
-      }
-    ],
+    "inputs": [{"name": "en", "type": "bool"}],
     "outputs": [],
     "stateMutability": "nonpayable"
   },
   {
-    "name": "swapEnabled",
+    "name": "setNoYield",
     "type": "function",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool",
-        "internalType": "bool"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "name": "symbol",
-    "type": "function",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "string",
-        "internalType": "string"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "name": "totalShares",
-    "type": "function",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "name": "totalSupply",
-    "type": "function",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "name": "transfer",
-    "type": "function",
-    "inputs": [
-      {
-        "name": "to",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "v",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool",
-        "internalType": "bool"
-      }
-    ],
-    "stateMutability": "nonpayable"
-  },
-  {
-    "name": "transferFrom",
-    "type": "function",
-    "inputs": [
-      {
-        "name": "f",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "t",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "v",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool",
-        "internalType": "bool"
-      }
-    ],
+    "inputs": [{"name": "wallet", "type": "address"}, {"name": "excluded", "type": "bool"}],
+    "outputs": [],
     "stateMutability": "nonpayable"
   },
   {
     "name": "transferOwnership",
     "type": "function",
-    "inputs": [
-      {
-        "name": "newOwner",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
+    "inputs": [{"name": "newOwner", "type": "address"}],
     "outputs": [],
     "stateMutability": "nonpayable"
   },
   {
-    "name": "walletClaimTS",
+    "name": "airdrop",
     "type": "function",
     "inputs": [
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "address"
-      }
+      {"name": "to",   "type": "address[]"},
+      {"name": "amts", "type": "uint256[]"}
     ],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "stateMutability": "view"
+    "outputs": [],
+    "stateMutability": "nonpayable"
   },
+  {"name": "walletCount",   "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint256"}], "stateMutability": "view"},
+  {"name": "polBips",       "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint16"}],  "stateMutability": "view"},
+  {"name": "polLocked",     "type": "function", "inputs": [], "outputs": [{"name": "", "type": "bool"}],    "stateMutability": "view"},
+  {"name": "totalPolAdded", "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint256"}], "stateMutability": "view"},
   {
-    "name": "walletIndex",
+    "name": "processYield",
     "type": "function",
-    "inputs": [
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "stateMutability": "view"
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
   },
   {
-    "name": "walletInfo",
+    "name": "setPolBips",
     "type": "function",
-    "inputs": [
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
-    "outputs": [
-      {
-        "name": "share",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "stateMutability": "view"
+    "inputs": [{"name": "bips", "type": "uint16"}],
+    "outputs": [],
+    "stateMutability": "nonpayable"
   },
   {
-    "name": "walletRewardChoice",
+    "name": "lockPol",
     "type": "function",
-    "inputs": [
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
-    "outputs": [
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
-    "stateMutability": "view"
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
   },
   {
-    "name": "wallets",
+    "name": "recoverToken",
     "type": "function",
-    "inputs": [
-      {
-        "name": "",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "outputs": [
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
-    "stateMutability": "view"
+    "inputs": [{"name": "token", "type": "address"}],
+    "outputs": [],
+    "stateMutability": "nonpayable"
   },
   {
-    "name": "yieldDebt",
-    "type": "function",
-    "inputs": [
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "stateMutability": "view"
+    "name": "PolBipsUpdated",
+    "type": "event",
+    "inputs": [{"name": "bips", "type": "uint16", "indexed": false, "internalType": "uint16"}],
+    "anonymous": false
   },
   {
-    "type": "receive",
-    "stateMutability": "payable"
-  }
+    "name": "PolLocked",
+    "type": "event",
+    "inputs": [],
+    "anonymous": false
+  },
+  {
+    "name": "ProtocolLiquidityAdded",
+    "type": "event",
+    "inputs": [
+      {"name": "riseUsed", "type": "uint256", "indexed": false, "internalType": "uint256"},
+      {"name": "wplsUsed", "type": "uint256", "indexed": false, "internalType": "uint256"}
+    ],
+    "anonymous": false
+  },
+  {"type": "receive", "stateMutability": "payable"}
 ]
