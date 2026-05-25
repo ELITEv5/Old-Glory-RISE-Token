@@ -819,7 +819,9 @@ const LP_ABI = [
 ];
 
 // ── STATE ──
+const PULSECHAIN_RPC = 'https://rpc.pulsechain.com';
 let provider, signer, contract, lpContract, userAddress;
+let roProvider, roContract, roLpContract; // read-only, no wallet needed
 let refreshInterval, countdownInterval;
 let lastClaimTS = 0, minWaitSec = 3600, minYieldAmt = 0.369;
 
@@ -912,6 +914,7 @@ async function connectWallet(){
 
     document.getElementById('claimPanel').classList.add('visible');
 
+    clearInterval(refreshInterval);
     await loadAll();
     refreshInterval = setInterval(loadAll, 30000);
 
@@ -931,11 +934,14 @@ async function loadAll(){
 }
 
 async function loadGlobal(){
+  const rc = contract || roContract;
+  const rlp = lpContract || roLpContract;
+  if(!rc || !rlp) return;
   try {
     // Price — read from RISE/WPLS LP reserves
     try {
-      const reserves = await lpContract.getReserves();
-      const t0 = await lpContract.token0();
+      const reserves = await rlp.getReserves();
+      const t0 = await rlp.token0();
       let riseRes, plsRes;
       if(t0.toLowerCase() === CONTRACT_ADDRESS.toLowerCase()){
         riseRes = reserves[0]; plsRes = reserves[1];
@@ -954,27 +960,27 @@ async function loadGlobal(){
       }
     } catch { document.getElementById('risePrice').textContent = 'N/A'; }
 
-    const supply = await contract.totalSupply();
+    const supply = await rc.totalSupply();
     document.getElementById('totalSupply').textContent = fmt(ethers.formatEther(supply),0);
 
-    const burned = await contract.balanceOf(BURN_ADDRESS);
+    const burned = await rc.balanceOf(BURN_ADDRESS);
     document.getElementById('totalBurned').textContent = fmt(ethers.formatEther(burned),0);
 
-    const paid = await contract.totalYieldPaid();
+    const paid = await rc.totalYieldPaid();
     document.getElementById('totalPaid').textContent = fmt(ethers.formatEther(paid),2);
 
     const [swapEn, payoutEn, autoP, shares, mwait, bb, by, sb, sy, wallets, polAdded] = await Promise.all([
-      contract.swapEnabled(),
-      contract.payoutEnabled(),
-      contract.autoPayout(),
-      contract.totalShares(),
-      contract.minWaitSec(),
-      contract.buyBurnFee(),
-      contract.buyYieldFee(),
-      contract.sellBurnFee(),
-      contract.sellYieldFee(),
-      contract.walletCount(),
-      contract.totalPolAdded(),
+      rc.swapEnabled(),
+      rc.payoutEnabled(),
+      rc.autoPayout(),
+      rc.totalShares(),
+      rc.minWaitSec(),
+      rc.buyBurnFee(),
+      rc.buyYieldFee(),
+      rc.sellBurnFee(),
+      rc.sellYieldFee(),
+      rc.walletCount(),
+      rc.totalPolAdded(),
     ]);
 
     document.getElementById('walletCount').textContent = Number(wallets).toLocaleString();
@@ -1149,6 +1155,19 @@ async function claimYield(){
 })();
 
 document.getElementById('connectBtn').addEventListener('click', connectWallet);
+
+// Read-only init — loads public stats without wallet
+(async () => {
+  try {
+    roProvider = new ethers.JsonRpcProvider(PULSECHAIN_RPC);
+    roContract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, roProvider);
+    const lpAddr = await roContract.plsV2LP();
+    roLpContract = new ethers.Contract(lpAddr, LP_ABI, roProvider);
+    await loadGlobal();
+    refreshInterval = setInterval(loadGlobal, 30000);
+  } catch(e){ console.warn('read-only init:', e.message); }
+})();
+
 if(window.ethereum?.selectedAddress) connectWallet();
 </script>
 </body>
