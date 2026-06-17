@@ -326,14 +326,53 @@
     background:linear-gradient(90deg, var(--border), transparent);
   }
 
+  /* ── MISSION CARDS ── */
+  .mission-cards {
+    display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:0 0 8px;
+  }
+  @media(max-width:860px) { .mission-cards { grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:480px) { .mission-cards { grid-template-columns:1fr; } }
+  .mission-card {
+    background: linear-gradient(160deg, rgba(13,33,69,.9) 0%, rgba(6,13,26,.96) 100%);
+    border:1px solid var(--border); border-top:2px solid var(--red);
+    padding:22px 18px; position:relative; overflow:hidden;
+    transition:all .3s; backdrop-filter:blur(4px);
+  }
+  .mission-card:hover { border-top-color:var(--gold); transform:translateY(-3px); box-shadow:0 10px 36px rgba(0,0,0,.4), 0 0 20px rgba(201,150,58,.09); }
+  .mission-card .mc-num {
+    font-family:'Bebas Neue',sans-serif; font-size:3rem; line-height:1;
+    color:rgba(201,150,58,.1); position:absolute; top:8px; right:14px; letter-spacing:.05em;
+    pointer-events:none;
+  }
+  .mission-card .mc-tag {
+    font-size:.6rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--red2); margin-bottom:10px;
+  }
+  .mission-card .mc-title {
+    font-family:'Bebas Neue',sans-serif; font-size:1.3rem; letter-spacing:.1em;
+    color:var(--gold2); margin-bottom:8px; line-height:1.1;
+  }
+  .mission-card .mc-body {
+    font-size:.77rem; color:rgba(154,173,190,.8); line-height:1.7; font-weight:300;
+  }
+
+  /* ── PROCESS BTN ── */
+  .proc-btn {
+    font-family:'Oswald',sans-serif; font-size:.75rem; font-weight:600; letter-spacing:.18em;
+    text-transform:uppercase; background:rgba(13,33,69,.8); color:var(--silver);
+    border:1px solid rgba(154,173,190,.22); padding:8px 22px; margin-top:10px;
+    cursor:pointer; transition:all .2s; width:100%;
+  }
+  .proc-btn:hover:not(:disabled) { border-color:var(--gold); color:var(--gold2); background:rgba(13,33,69,.95); }
+  .proc-btn:disabled { opacity:.32; cursor:default; }
+
   /* ── CLAIM PANEL ── */
   .claim-panel {
     background: linear-gradient(135deg, rgba(176,26,46,.14) 0%, rgba(6,13,26,.97) 100%);
     border:2px solid rgba(176,26,46,.5); padding:40px;
-    position:relative; overflow:hidden; display:none;
+    position:relative; overflow:hidden;
     backdrop-filter: blur(8px);
   }
-  .claim-panel.visible { display:block; }
   .claim-panel::before {
     content:''; position:absolute; inset:0;
     background: radial-gradient(ellipse at 50% 110%, rgba(176,26,46,.15) 0%, transparent 55%);
@@ -564,6 +603,7 @@
       <a class="ext-link" id="linkScan" href="#" target="_blank">PulseScan</a>
       <a class="ext-link" id="linkBuy" href="#" target="_blank">Buy RISE</a>
       <a class="ext-link" id="linkLP" href="#" target="_blank">Add Liquidity</a>
+      <a class="ext-link" href="https://elitev5.github.io/SunDAIV2/index.html" target="_blank">pSunDAI</a>
     </div>
 
     <button class="connect-btn" id="connectBtn">Connect Wallet</button>
@@ -575,6 +615,35 @@
     Every trade buys pSunDAI &nbsp;·&nbsp; Distributed to holders &nbsp;·&nbsp;
     <span>$300+ donated to veteran charities</span> &nbsp;·&nbsp;
     <em>Serving those who served</em>
+  </div>
+
+  <!-- WHAT IS RISE -->
+  <div class="section-label">What is RISE?</div>
+  <div class="mission-cards">
+    <div class="mission-card">
+      <div class="mc-num">I</div>
+      <div class="mc-tag">Hold &amp; Earn</div>
+      <div class="mc-title">Auto-Yield for Holders</div>
+      <div class="mc-body">Every buy and sell triggers an automatic pSunDAI purchase distributed proportionally to all holders. No staking. No lockups. Just hold.</div>
+    </div>
+    <div class="mission-card">
+      <div class="mc-num">II</div>
+      <div class="mc-tag">Deflationary</div>
+      <div class="mc-title">Burns on Every Trade</div>
+      <div class="mc-body">A portion of every transaction is permanently sent to the burn address, reducing supply forever. The longer you hold, the larger your slice of a shrinking float.</div>
+    </div>
+    <div class="mission-card">
+      <div class="mc-num">III</div>
+      <div class="mc-tag">POL Floor</div>
+      <div class="mc-title">Permanent Liquidity</div>
+      <div class="mc-body">The protocol acquires its own liquidity and locks it permanently. Each trade builds an ever-rising price floor that no team, no VC, and no whale can pull.</div>
+    </div>
+    <div class="mission-card">
+      <div class="mc-num">IV</div>
+      <div class="mc-tag">Mission Driven</div>
+      <div class="mc-title">Veterans &amp; Community</div>
+      <div class="mc-body">Old Glory RISE donates to veteran charities. Buy a token. Support those who served. Real money, real impact, fully on-chain.</div>
+    </div>
   </div>
 
   <!-- GLOBAL STATS -->
@@ -708,6 +777,12 @@
           Claim<br>pSunDAI
         </button>
         <div class="tx-status" id="txStatus"></div>
+        <button class="proc-btn" id="procBtn" onclick="processYield()" disabled>
+          Trigger Distribution
+        </button>
+        <div style="font-size:.62rem;color:rgba(154,173,190,.45);margin-top:4px;letter-spacing:.05em;">
+          forces payout cycle · anyone can call
+        </div>
       </div>
     </div>
   </div>
@@ -912,6 +987,7 @@ async function connectWallet(){
     setStatus('walletStatus', 'Connected to PulseChain — '+short, 'ok');
 
     document.getElementById('claimPanel').classList.add('visible');
+    document.getElementById('procBtn').disabled = false;
 
     clearInterval(refreshInterval);
     await loadAll();
@@ -1137,12 +1213,29 @@ async function claimYield(){
   }
 }
 
+// ── PROCESS YIELD ──
+async function processYield(){
+  if(!contract) return;
+  const btn = document.getElementById('procBtn');
+  btn.disabled = true; btn.textContent = 'Processing…';
+  try {
+    const tx = await contract.processYield();
+    await tx.wait();
+    toast('Yield distribution triggered!', 'success');
+    await loadAll();
+  } catch(e){ toast('Failed: '+(e.reason||e.message), 'error'); }
+  finally { btn.disabled = false; btn.textContent = 'Trigger Distribution'; }
+}
+
 // ── BOOT ──
 (function(){
   const ca = CONTRACT_ADDRESS;
   const deployed = ca !== '0x0000000000000000000000000000000000000000';
   const pill = document.getElementById('contractPill');
-  if(pill) pill.textContent = deployed ? ca : 'Deploying V14...';
+  if(pill){
+    pill.textContent = deployed ? `${ca.slice(0,6)}…${ca.slice(-4)}` : 'Deploying V14...';
+    if(deployed) pill.title = ca + ' · Click to copy';
+  }
   if(deployed){
     const scan = document.getElementById('linkScan');
     const buy  = document.getElementById('linkBuy');
