@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🇺🇸 Old Glory RISE V13 — Command Center</title>
+    <title>🇺🇸 Old Glory RISE V21 — Command Center</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js"></script>
     <style>
@@ -431,8 +431,8 @@
         <div class="header-top">
             <div>
                 <h1>🇺🇸 Old Glory RISE</h1>
-                <div class="version-tag">V14 &nbsp;·&nbsp; pSunDAI Yield + Protocol-Owned Liquidity &nbsp;·&nbsp; Command Center</div>
-                <div class="contract-display" id="contractAddr">0x9De9a56f971038ef1Cca7195CCB8b49b570b83b3</div>
+                <div class="version-tag">V21 &nbsp;·&nbsp; pSunDAI Yield + Protocol-Owned Liquidity &nbsp;·&nbsp; Command Center</div>
+                <div class="contract-display" id="contractAddr">0x90f3ddf0A60BD752d5dffBEedA179f6670C152b3</div>
             </div>
             <div style="text-align:right;">
                 <button class="connect-btn" id="connectBtn">Connect Wallet</button>
@@ -849,6 +849,21 @@
             Ownership transfers and renouncement are permanent. Lock everything before renouncing.
         </div>
 
+        <div class="section-lbl">Airdrop</div>
+        <div class="info-box" style="font-size:.8em;">
+            Send RISE to multiple wallets in one transaction. Recipients must hold ≥ 1 RISE after receipt to earn yield shares.
+            Amounts are raw RISE (enter whole tokens — converted to 18-decimal wei automatically).
+        </div>
+        <div class="form-group">
+            <label>Recipients &amp; Amounts — one per line: <code style="color:var(--gold2);">0xADDRESS,amount</code></label>
+            <textarea id="airdropData" rows="6" placeholder="0xABC...,1000&#10;0xDEF...,500&#10;0x123...,250"
+                style="width:100%;padding:10px 14px;background:rgba(0,0,0,.4);border:1px solid rgba(201,150,58,.2);color:var(--white);font-family:'Share Tech Mono',monospace;font-size:.82rem;resize:vertical;"></textarea>
+        </div>
+        <button class="action-btn green-btn" onclick="sendAirdrop()">Send Airdrop</button>
+        <div id="airdropStatus"></div>
+
+        <hr>
+
         <div class="section-lbl">Token Recovery</div>
         <div class="form-row">
             <div>
@@ -863,7 +878,7 @@
                 <button class="action-btn warning-btn" onclick="recoverToken()">Recover Token</button>
                 <div style="font-size:.78rem;color:var(--silver);margin-top:8px;font-weight:300;">
                     Useful for recovering stranded WPLS after a failed LP add.
-                    RISE and pSunDAI are protected and cannot be recovered this way.
+                    RISE cannot be recovered this way (v21 simplified — any other ERC20 is fair game).
                 </div>
             </div>
         </div>
@@ -890,7 +905,7 @@
 <div id="toast"></div>
 
 <script>
-    const CONTRACT_ADDRESS = '0x9De9a56f971038ef1Cca7195CCB8b49b570b83b3'; // RISE v14
+    const CONTRACT_ADDRESS = '0x90f3ddf0A60BD752d5dffBEedA179f6670C152b3'; // RISE v21
 
     const ABI = [
         // View
@@ -923,6 +938,7 @@
         "function setPolBips(uint16 bips)",
         "function lockPol()",
         "function setNoYield(address wallet, bool excluded)",
+        "function airdrop(address[] calldata to, uint256[] calldata amts)",
         "function recoverPLS()",
         "function recoverToken(address token)",
         "function transferOwnership(address newOwner)",
@@ -1264,6 +1280,33 @@
             showStatus('processStatus','✅ Yield processed! Check totalYieldPaid and ProtocolLiquidityAdded events.','success');
             loadStatus();
         } catch(e) { showStatus('processStatus','Error: '+e.message,'error'); }
+    }
+
+    // ── AIRDROP ──
+    async function sendAirdrop() {
+        if (!contract) { showStatus('airdropStatus','Connect wallet first','error'); return; }
+        const raw = document.getElementById('airdropData').value.trim();
+        if (!raw) { showStatus('airdropStatus','No data entered.','error'); return; }
+        const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
+        const toArr = [], amtArr = [];
+        for (const line of lines) {
+            const parts = line.split(',');
+            if (parts.length < 2) { showStatus('airdropStatus','Bad format on line: '+line,'error'); return; }
+            const addr = parts[0].trim();
+            const amt  = parseFloat(parts[1].trim());
+            if (!ethers.isAddress(addr)) { showStatus('airdropStatus','Invalid address: '+addr,'error'); return; }
+            if (isNaN(amt) || amt <= 0)  { showStatus('airdropStatus','Invalid amount for '+addr,'error'); return; }
+            toArr.push(addr);
+            amtArr.push(ethers.parseEther(amt.toString()));
+        }
+        const total = amtArr.reduce((a,b) => a+b, 0n);
+        if (!confirm(`Airdrop ${toArr.length} wallets, total ${ethers.formatEther(total)} RISE. Continue?`)) return;
+        try {
+            showStatus('airdropStatus','Sending…','info');
+            await (await contract.airdrop(toArr, amtArr)).wait();
+            showStatus('airdropStatus',`✅ Airdrop sent to ${toArr.length} wallets!`,'success');
+            toast('Airdrop complete!', 'success');
+        } catch(e) { showStatus('airdropStatus','Error: '+e.message,'error'); }
     }
 
     // ── RECOVERY ──
