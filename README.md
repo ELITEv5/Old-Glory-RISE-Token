@@ -221,19 +221,11 @@ Every trade burns tokens:
 
 **Supply decreases over time. Scarcity increases. Value compounds.**
 
-### Treasury Accelerator
+### Protocol-Owned Liquidity (POL)
 
-The 1M RISE treasury (10%) earns pSunDAI yield like any holder, then:
-1. Claims accumulated pSunDAI
-2. Swaps pSunDAI → PLS → RISE
-3. **Burns purchased RISE permanently**
+The FeeVault converts protocol fees directly into permanent POL — no separate Treasury Accelerator needed. 80% of every fee conversion buys RISE + WPLS and adds them as liquidity permanently. The LP tokens are locked inside the contract forever, compounding with every deposit across all pools.
 
-**The treasury BUYS and BURNS instead of selling. Pure deflation.**
-
-Expected burn rates (volume dependent):
-- $5k/day: 17% annual deflation
-- $50k/day: 173% annual deflation  
-- $100k+/day: 347%+ annual deflation
+**Burn mechanics are automated and on-chain.** No manual treasury management required.
 
 ---
 
@@ -249,7 +241,6 @@ Expected burn rates (volume dependent):
 
 ### Phase 2: Scale
 
-- Deploy Treasury Accelerator
 - Increase fee parameters gradually
 - Expand charity partnerships
 - Cross-promote with SunDAI ecosystem
@@ -270,10 +261,9 @@ Expected burn rates (volume dependent):
 
 ### Contracts
 
-- **RISE Token**: [`0xE558edc934FDbB65cdF4868617D5F0D80595aD11`](https://scan.pulsechain.com/address/0xE558edc934FDbB65cdF4868617D5F0D80595aD11)
-- **RISE/WPLS LP**: *[To be deployed]*
-- **pSunDAI**: `0x5529...` *(update)*
-- **Treasury Accelerator**: *[To be deployed]*
+- **RISE Token (v21)**: [`0x90f3ddf0A60BD752d5dffBEedA179f6670C152b3`](https://scan.pulsechain.com/address/0x90f3ddf0A60BD752d5dffBEedA179f6670C152b3)
+- **RISE/WPLS LP**: [`0xA3B1350f768C1Ac213F3d3A182773CDef746B6FC`](https://scan.pulsechain.com/address/0xA3B1350f768C1Ac213F3d3A182773CDef746B6FC)
+- **pSunDAI**: [`0x0b5701078675870AaA121Da2AECD906A1720B008`](https://scan.pulsechain.com/address/0x0b5701078675870AaA121Da2AECD906A1720B008)
 
 ### Ecosystem
 
